@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PumpFun Index Fund</title>
-    <link rel="icon" type="image/x-icon" href="pump.png">
+    <title>OreFun</title>
+    <link rel="icon" type="image/x-icon" href="ore.png">
     <style>
         * {
             margin: 0;
@@ -13,155 +13,236 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f0;
-            color: #0d4d3d;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f8f5 100%);
+            color: #1a4d3e;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* X Button */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: white;
+            box-shadow: 0 2px 10px rgba(72, 187, 120, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #2d7a5f;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+            padding-bottom: 0.25rem;
+            cursor: pointer;
+        }
+
+        .nav a:hover {
+            color: #48bb78;
+        }
+
+        .nav a.active {
+            color: #2d7a5f;
+            border-bottom: 2px solid #2d7a5f;
+        }
+
+        .connect-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .connect-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(72, 187, 120, 0.3);
+        }
+
+        .connect-btn.connected {
+            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+        }
+
         .x-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: #ffffff;
-            border: 3px solid #22c55e;
+            background: transparent;
+            border: 2px solid rgba(72, 187, 120, 0.3);
             border-radius: 50%;
+            padding: 0.5rem;
+            color: #2d7a5f;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
+            width: 40px;
+            height: 40px;
         }
 
         .x-button:hover {
-            background: #22c55e;
+            background: rgba(72, 187, 120, 0.1);
+            border-color: #48bb78;
             transform: scale(1.1);
         }
 
         .x-button svg {
-            width: 24px;
-            height: 24px;
-            fill: #0d4d3d;
+            width: 20px;
+            height: 20px;
+            fill: #2d7a5f;
         }
 
-        .x-button:hover svg {
-            fill: #ffffff;
-        }
-
-        /* Home Page Styles */
-        .home-page {
-            min-height: 100vh;
+        .main-container {
             display: flex;
-            flex-direction: column;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 4rem;
+            justify-content: center;
+        }
+
+        .content {
+            flex: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Home page specific styles */
+        .home-page {
+            display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            min-height: calc(100vh - 120px);
+        }
+
+        .home-hero {
             text-align: center;
+            padding: 2rem;
         }
 
-        .logo-container {
-            margin-bottom: 3rem;
-        }
-
-        .logo-circle {
+        .hero-icon-large {
             width: 200px;
             height: 200px;
             margin: 0 auto 2rem;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            border: 8px solid #ffffff;
-            box-shadow: 
-                0 0 0 3px #0d4d3d,
-                0 20px 60px rgba(13, 77, 61, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .logo-circle::before {
-            content: '$';
-            font-size: 8rem;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .logo-text {
-            font-size: 4rem;
-            font-weight: 900;
-            color: #0d4d3d;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-        }
-
-        .home-subtitle {
-            font-size: 1.5rem;
-            color: #16a34a;
-            margin-bottom: 3rem;
-            font-weight: 500;
-        }
-
-        .cta-button {
-            padding: 1.25rem 3rem;
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            border: none;
-            border-radius: 50px;
-            color: #ffffff;
-            font-size: 1.25rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(34, 197, 94, 0.4);
-        }
-
-        /* App Page Styles */
-        .app-page {
-            display: none;
-            min-height: 100vh;
-            padding: 2rem;
-        }
-
-        .app-page.active {
             display: block;
         }
 
-        .app-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding-top: 4rem;
+        .home-title {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
         }
 
-        .app-title {
-            font-size: 3.5rem;
-            font-weight: 900;
+        .home-tagline {
+            font-size: 1.5rem;
+            color: #4a5568;
+            margin-bottom: 3rem;
+            font-weight: 500;
+        }
+
+        .launch-app-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 1.25rem 3.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 25px rgba(72, 187, 120, 0.3);
+        }
+
+        .launch-app-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(72, 187, 120, 0.4);
+        }
+
+        /* Leaderboard Styles */
+        .leaderboard-container {
             text-align: center;
-            color: #0d4d3d;
+            padding: 3rem 0;
+        }
+
+        .leaderboard-title {
+            font-size: 3rem;
+            color: #2d7a5f;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .leaderboard-subtitle {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 3rem;
+        }
+
+        .empty-state {
+            background: white;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            border: 2px dashed #48bb78;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
             margin-bottom: 1rem;
         }
 
-        .app-subtitle {
+        .empty-state h3 {
+            font-size: 1.8rem;
+            color: #2d7a5f;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        /* Dev Fees Page Styles */
+        .dev-fees-container {
             text-align: center;
-            font-size: 1.2rem;
-            color: #16a34a;
-            margin-bottom: 3rem;
-            font-weight: 500;
+            padding: 2rem 0;
         }
 
         .circle-container {
             position: relative;
-            width: 320px;
-            height: 320px;
+            width: 280px;
+            height: 280px;
             margin: 0 auto 3rem;
         }
 
@@ -169,14 +250,14 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 
-                0 0 0 8px #ffffff,
-                0 0 0 12px #0d4d3d,
-                0 20px 60px rgba(13, 77, 61, 0.4);
+                0 0 40px rgba(72, 187, 120, 0.3),
+                inset 0 0 60px rgba(0, 0, 0, 0.2);
+            border: 8px solid #2d7a5f;
             position: relative;
             overflow: hidden;
         }
@@ -188,7 +269,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             animation: pulse 3s ease-in-out infinite;
         }
 
@@ -204,12 +285,12 @@
         }
 
         .fee-amount {
-            font-size: 4rem;
-            font-weight: 900;
-            color: #ffffff;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
             z-index: 1;
             position: relative;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
         }
 
@@ -218,249 +299,431 @@
         }
 
         .update-indicator {
-            font-size: 1rem;
-            color: #16a34a;
-            margin-bottom: 3rem;
-            font-weight: 600;
-            text-align: center;
+            font-size: 0.9rem;
+            color: #48bb78;
+            margin-top: 1rem;
+            font-weight: 500;
         }
 
         .info-section {
-            background: #ffffff;
-            border-radius: 30px;
-            padding: 3rem;
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
             margin-top: 2rem;
-            border: 4px solid #0d4d3d;
-            box-shadow: 0 20px 60px rgba(13, 77, 61, 0.15);
+            border: 2px solid rgba(72, 187, 120, 0.3);
+            box-shadow: 0 8px 32px rgba(72, 187, 120, 0.1);
         }
 
         .info-section h2 {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             margin-bottom: 1.5rem;
-            color: #0d4d3d;
-            font-weight: 900;
-            text-align: center;
-        }
-
-        .info-description {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 3rem;
-            color: #0d4d3d;
-            text-align: center;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            color: #2d7a5f;
+            font-weight: 600;
         }
 
         .fee-breakdown {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
         .fee-card {
-            background: #f5f5f0;
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 3px solid #22c55e;
+            background: rgba(72, 187, 120, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid rgba(72, 187, 120, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .fee-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(34, 197, 94, 0.2);
+            box-shadow: 0 10px 25px rgba(72, 187, 120, 0.2);
+            border-color: rgba(72, 187, 120, 0.4);
         }
 
         .fee-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #0d4d3d;
-            font-weight: 800;
-            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #2d7a5f;
+            font-weight: 600;
         }
 
         .fee-card p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #0d4d3d;
-            text-align: center;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4a5568;
         }
 
         .percentage {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #48bb78;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Whitepaper Styles */
+        .whitepaper-container {
+            padding: 3rem 0;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
             font-size: 3rem;
-            font-weight: 900;
-            color: #22c55e;
-            margin-bottom: 1rem;
-            text-align: center;
+            font-weight: 700;
+            color: #2d7a5f;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
         }
 
-        .explanation-box {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            padding: 2.5rem;
-            border-radius: 20px;
-            margin-top: 3rem;
-            color: #ffffff;
-        }
-
-        .explanation-box h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .explanation-box p {
+        .page-subtitle {
             font-size: 1.1rem;
-            line-height: 1.8;
-            text-align: center;
+            color: #4a5568;
         }
 
-        .how-it-works {
-            background: #ffffff;
-            border: 3px solid #0d4d3d;
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 2rem;
+        }
+
+        .intro-text {
+            font-size: 1.3rem;
+            color: #2d7a5f;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: #2d7a5f;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 1rem;
+        }
+
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        /* Profile/Wallet Connection */
+        .profile-container {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .wallet-card {
+            background: white;
+            padding: 4rem 2rem;
             border-radius: 20px;
+            border: 2px solid rgba(72, 187, 120, 0.3);
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(72, 187, 120, 0.1);
+        }
+
+        .wallet-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .wallet-card h2 {
+            font-size: 2rem;
+            color: #2d7a5f;
+            margin-bottom: 1rem;
+        }
+
+        .wallet-card p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .wallet-info {
+            background: rgba(72, 187, 120, 0.1);
             padding: 2rem;
+            border-radius: 15px;
             margin-top: 2rem;
         }
 
-        .how-it-works h4 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #0d4d3d;
-            margin-bottom: 1rem;
+        .wallet-address {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #2d7a5f;
+            word-break: break-all;
+            margin-top: 0.5rem;
         }
 
-        .how-it-works ol {
-            list-style-position: inside;
-            font-size: 1.05rem;
-            line-height: 2;
-            color: #0d4d3d;
-        }
-
-        .how-it-works li {
-            margin-bottom: 0.75rem;
+        @media (max-width: 1024px) {
+            .main-container {
+                padding: 1.5rem;
+            }
         }
 
         @media (max-width: 768px) {
-            .logo-text {
-                font-size: 2.5rem;
+            .header {
+                padding: 1rem;
+                flex-wrap: wrap;
+                gap: 1rem;
             }
 
-            .app-title {
+            .nav {
+                display: none;
+            }
+
+            .x-button {
+                display: none;
+            }
+
+            .home-title {
+                font-size: 3rem;
+            }
+
+            .home-tagline {
+                font-size: 1.2rem;
+            }
+
+            .hero-icon-large {
+                width: 150px;
+                height: 150px;
+            }
+
+            .launch-app-btn {
+                padding: 1rem 2.5rem;
+                font-size: 1.1rem;
+            }
+
+            .page-title, .leaderboard-title {
                 font-size: 2.5rem;
             }
 
             .circle-container {
-                width: 250px;
-                height: 250px;
+                width: 220px;
+                height: 220px;
             }
 
             .fee-amount {
-                font-size: 3rem;
-            }
-
-            .info-section {
-                padding: 2rem;
-            }
-
-            .x-button {
-                width: 45px;
-                height: 45px;
-            }
-
-            .x-button svg {
-                width: 20px;
-                height: 20px;
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- X Button -->
-    <a href="https://x.com/pumpindexfund" target="_blank" class="x-button">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-        </svg>
-    </a>
+    <header class="header">
+        <div class="logo" onclick="showView('home')">OREFUN</div>
+        <nav class="nav">
+            <a onclick="showView('leaderboard')" id="nav-leaderboard">Leaderboard</a>
+            <a onclick="showView('devfees')" id="nav-devfees">Check Dev Fees</a>
+            <a onclick="showView('whitepaper')" id="nav-whitepaper">Whitepaper</a>
+            <a href="https://x.com/Ore_Fun" target="_blank" rel="noopener noreferrer" class="x-button">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                </svg>
+            </a>
+        </nav>
+        <button class="connect-btn" id="connectBtn" onclick="connectWallet()">Connect Wallet</button>
+    </header>
 
-    <!-- Home Page -->
-    <div class="home-page" id="homePage">
-        <div class="logo-container">
-            <div class="logo-circle"></div>
-            <h1 class="logo-text">PUMPFUN INDEX FUND</h1>
+    <!-- Home View -->
+    <div id="home-view" class="view active">
+        <div class="main-container">
+            <main class="content home-page">
+                <div class="home-hero">
+                    <div class="hero-icon-large">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="100" cy="100" rx="50" ry="80" fill="#48bb78" opacity="0.3" transform="rotate(-45 100 100)"/>
+                            <ellipse cx="100" cy="100" rx="50" ry="80" fill="#e0f2e9" opacity="0.5" transform="rotate(45 100 100)"/>
+                            <rect x="50" y="60" width="100" height="80" rx="40" fill="#48bb78" opacity="0.8"/>
+                            <rect x="50" y="60" width="100" height="40" rx="40" fill="#68d391"/>
+                            <circle cx="65" cy="95" r="8" fill="white" opacity="0.6"/>
+                            <path d="M 60 100 Q 65 110 70 100" stroke="white" stroke-width="3" fill="none" opacity="0.6"/>
+                        </svg>
+                    </div>
+                    <h1 class="home-title">OREFUN</h1>
+                    <p class="home-tagline">Hold tokens. Earn from mining. Get paid daily.</p>
+                    <button class="launch-app-btn" onclick="showView('whitepaper')">Launch App</button>
+                </div>
+            </main>
         </div>
-        
-        <p class="home-subtitle">An index fund built on Solana</p>
-        
-        <button class="cta-button" onclick="showApp()">Launch App</button>
     </div>
 
-    <!-- App Page -->
-    <div class="app-page" id="appPage">
-        <div class="app-container">
-            <h1 class="app-title">PumpFun Index Fund</h1>
-            <p class="app-subtitle">Developer Fee Pool</p>
-            
-            <div class="circle-container">
-                <div class="circle">
-                    <div class="fee-amount" id="feeAmount">$0</div>
-                </div>
-            </div>
-            
-            <div class="update-indicator" id="updateIndicator">
-                Updates every 5 seconds
-            </div>
-
-            <div class="info-section">
-                <h2>How The Index Fund Works</h2>
-                <p class="info-description">
-                    The amount displayed above represents the accumulated developer fees. Unlike traditional models, <strong>100% of these fees are used to airdrop tokens to holders</strong>, functioning exactly like a traditional index fund dividend distribution.
-                </p>
-
-                <div class="explanation-box">
-                    <h3>Index Fund Distribution Model</h3>
-                    <p>
-                        Just like traditional index funds distribute dividends to shareholders, PumpFun Index Fund airdrops tokens to holders proportional to their stake. All developer fees collected are automatically distributed back to the community, creating a true passive income stream for long-term holders.
-                    </p>
+    <!-- Leaderboard View -->
+    <div id="leaderboard-view" class="view">
+        <div class="main-container">
+            <main class="content">
+                <div class="leaderboard-container">
+                    <h1 class="leaderboard-title">🏆 Leaderboard</h1>
+                    <p class="leaderboard-subtitle">Top holders and their earnings</p>
                     
-                    <div class="how-it-works">
-                        <h4>How It Works:</h4>
-                        <ol>
-                            <li><strong>Fees Accumulate:</strong> Platform generates fees from trading activity</li>
-                            <li><strong>Automatic Distribution:</strong> Fees are pooled and converted to tokens</li>
-                            <li><strong>Holder Airdrops:</strong> Tokens are airdropped proportionally to all holders</li>
-                            <li><strong>Compound Growth:</strong> Reinvest or hold to maximize your returns</li>
-                        </ol>
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📊</div>
+                        <h3>Coming Soon!</h3>
+                        <p>The leaderboard will be available once the project launches. Check back after launch to see the top holders and their mining rewards!</p>
                     </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Dev Fees View -->
+    <div id="devfees-view" class="view">
+        <div class="main-container">
+            <main class="content">
+                <div class="dev-fees-container">
+                    <h1 class="page-title">Developer Fee Pool</h1>
+                    
+                    <div class="circle-container">
+                        <div class="circle">
+                            <div class="fee-amount" id="feeAmount">$0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="update-indicator" id="updateIndicator">
+                        Updates every 5 seconds
+                    </div>
+
+                    <div class="info-section">
+                        <h2>How Developer Fees Work</h2>
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; color: #4a5568;">
+                            The amount displayed above represents the current developer fee pool. This value automatically updates every 5 seconds to reflect real-time accumulation of fees from the platform.
+                        </p>
+
+                        <div class="fee-breakdown">
+                            <div class="fee-card">
+                                <h3>⛏️ Mining Operations</h3>
+                                <div class="percentage">90%</div>
+                                <p>
+                                    The majority of collected fees are dedicated to mining operations across multiple cryptocurrencies, generating daily profits for all holders.
+                                </p>
+                            </div>
+
+                            <div class="fee-card">
+                                <h3>🛠️ Development Fund</h3>
+                                <div class="percentage">10%</div>
+                                <p>
+                                    A portion is allocated to the development team for ongoing platform maintenance, feature development, and operational expenses.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Whitepaper View -->
+    <div id="whitepaper-view" class="view">
+        <div class="main-container">
+            <main class="content whitepaper-container">
+                <div class="page-header">
+                    <div class="hero-icon">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="100" cy="100" rx="50" ry="80" fill="#48bb78" opacity="0.3" transform="rotate(-45 100 100)"/>
+                            <ellipse cx="100" cy="100" rx="50" ry="80" fill="#e0f2e9" opacity="0.5" transform="rotate(45 100 100)"/>
+                            <rect x="50" y="60" width="100" height="80" rx="40" fill="#48bb78" opacity="0.8"/>
+                            <rect x="50" y="60" width="100" height="40" rx="40" fill="#68d391"/>
+                            <circle cx="65" cy="95" r="8" fill="white" opacity="0.6"/>
+                            <path d="M 60 100 Q 65 110 70 100" stroke="white" stroke-width="3" fill="none" opacity="0.6"/>
+                        </svg>
+                    </div>
+                    <h1 class="page-title">Whitepaper</h1>
+                    <p class="page-subtitle">Learn about the protocol.</p>
                 </div>
 
-                <div class="fee-breakdown">
-                    <div class="fee-card">
-                        <div class="percentage">100%</div>
-                        <h3>Holder Airdrops</h3>
-                        <p>
-                            Every single dollar of developer fees is converted into tokens and airdropped directly to holders. The more you hold, the more you receive. This creates a self-sustaining ecosystem where holding the token generates passive income through regular airdrops, just like receiving dividends from a traditional index fund.
-                        </p>
+                <p class="intro-text">Orefun is a revolutionary project where we reinvest all dev fees to mine various coins and redistribute those profits every 24 hours to holders.</p>
+
+                <section class="section">
+                    <h2>Motivation</h2>
+                    <p>Traditional crypto projects keep developer fees for the team. We're doing something different. At Orefun, 100% of all developer fees generated from platform activity are reinvested into mining operations across multiple cryptocurrencies.</p>
+                    <p>Every 24 hours, the mining profits are automatically distributed to all Orefun holders proportional to their holdings. This creates a sustainable, passive income stream for our community while supporting the broader crypto mining ecosystem.</p>
+                </section>
+
+                <section class="section">
+                    <h2>How It Works</h2>
+                    <p>💰 <strong>Hold OREFUN</strong> - Simply hold OREFUN tokens in your wallet. No staking required, no lock-up periods, no complex processes.</p>
+                    <p>⛏️ <strong>We Mine for You</strong> - All dev fees from platform transactions are used to mine various cryptocurrencies including ORE and other profitable coins.</p>
+                    <p>📈 <strong>Daily Distributions</strong> - Every 24 hours, mining profits are automatically redistributed to all holders based on their token percentage.</p>
+                    <p>🔄 <strong>Claim or Reinvest</strong> - Use your daily earnings to claim profits or reinvest to buy more OREFUN tokens and increase your share of future distributions.</p>
+                </section>
+
+                <section class="section">
+                    <h2>Why Orefun?</h2>
+                    <p>Orefun eliminates the complexity of crypto mining while giving you direct exposure to mining profits. You don't need expensive hardware, technical knowledge, or high electricity costs. We handle all the mining operations and infrastructure.</p>
+                    <p>Your returns grow automatically through daily profit distributions, and you maintain complete control over your tokens. With no lock-up periods and transparent, automated distributions, you can claim your earnings anytime or compound your position by reinvesting.</p>
+                    <p>Built on Solana's high-speed blockchain, all transactions are fast, secure, and cost-effective. Join a community where dev fees benefit everyone, not just the team.</p>
+                </section>
+
+                <section class="section">
+                    <h2>Earnings Calculator</h2>
+                    <p>Your earnings depend on your token holdings and the daily mining profits generated. Here's how to calculate your potential returns:</p>
+                    <p><strong>Your Daily Earnings = (Your Tokens / Total Supply) × Daily Mining Profits</strong></p>
+                    <p>For example, if you hold 1% of the total OREFUN supply and the mining operations generate $1,000 in daily profits, you would receive $10 per day, which equals $300 per month or $3,650 per year.</p>
+                    <p>Mining profits vary based on market conditions, but the distribution mechanism ensures all holders benefit proportionally from the collective mining power.</p>
+                </section>
+
+                <section class="section">
+                    <h2>Tokenomics</h2>
+                    <p><strong>Total Supply:</strong> 1,000,000,000 (1B) OREFUN tokens</p>
+                    <p><strong>Distribution:</strong></p>
+                    <p>• 5% - Team</p>
+                    <p>• 95% - Public Circulation</p>
+                    <p><strong>Dev Fee Structure:</strong> 2% fee on all platform transactions, 100% allocated to mining operations.</p>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Profile/Wallet View -->
+    <div id="profile-view" class="view">
+        <div class="main-container">
+            <main class="content">
+                <div class="profile-container">
+                    <div class="wallet-card" id="walletCard">
+                        <div class="wallet-icon">👛</div>
+                        <h2>Connect Your Wallet</h2>
+                        <p>Connect your Solana wallet to view your OREFUN holdings, track your earnings, and claim your mining rewards.</p>
+                        <button class="launch-app-btn" onclick="connectWallet()">Connect Phantom Wallet</button>
+                        
+                        <div id="walletInfo" class="wallet-info" style="display: none;">
+                            <h3 style="color: #2d7a5f; margin-bottom: 0.5rem;">Connected Wallet</h3>
+                            <div class="wallet-address" id="walletAddress"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     </div>
 
     <script>
-        const STORAGE_KEY = 'pumpfun_fee_amount';
+        const STORAGE_KEY = 'orefun_fee_amount';
         let currentFee = 0.00;
-        const feeElement = document.getElementById('feeAmount');
-        const updateIndicator = document.getElementById('updateIndicator');
-        let updateInterval;
-
-        function showApp() {
-            document.getElementById('homePage').style.display = 'none';
-            document.getElementById('appPage').classList.add('active');
-            startFeeUpdates();
-        }
+        let walletConnected = false;
+        let walletAddress = null;
 
         // Load saved fee from localStorage
         function loadSavedFee() {
@@ -485,6 +748,11 @@
         }
 
         function updateFee() {
+            const feeElement = document.getElementById('feeAmount');
+            const updateIndicator = document.getElementById('updateIndicator');
+            
+            if (!feeElement) return;
+
             // Add animation class
             feeElement.classList.add('updating');
             
@@ -504,26 +772,99 @@
             }, 150);
 
             // Update the indicator
-            updateIndicator.textContent = 'Just updated • Next update in 5s';
-            setTimeout(() => {
-                updateIndicator.textContent = 'Updates every 5 seconds';
-            }, 2000);
+            if (updateIndicator) {
+                updateIndicator.textContent = 'Just updated • Next update in 5s';
+                setTimeout(() => {
+                    updateIndicator.textContent = 'Updates every 5 seconds';
+                }, 2000);
+            }
         }
 
-        function startFeeUpdates() {
-            // Load saved fee on page load
-            loadSavedFee();
-
-            // Set initial display
-            feeElement.textContent = formatCurrency(currentFee);
-
-            // First update after 5 seconds
-            setTimeout(() => {
-                updateFee();
-                // Then continue updating every 5 seconds
-                updateInterval = setInterval(updateFee, 5000);
-            }, 5000);
+        function showView(view) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            
+            // Show selected view
+            document.getElementById(view + '-view').classList.add('active');
+            
+            // Update nav active states
+            document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+            const navElement = document.getElementById('nav-' + view);
+            if (navElement) {
+                navElement.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
+
+        async function connectWallet() {
+            try {
+                // Check if Phantom is installed
+                const isPhantomInstalled = window.solana && window.solana.isPhantom;
+                
+                if (!isPhantomInstalled) {
+                    alert('Phantom wallet is not installed. Please install it from https://phantom.app/');
+                    window.open('https://phantom.app/', '_blank');
+                    return;
+                }
+
+                // Connect to Phantom
+                const response = await window.solana.connect();
+                walletAddress = response.publicKey.toString();
+                walletConnected = true;
+
+                // Update UI
+                const connectBtn = document.getElementById('connectBtn');
+                connectBtn.textContent = walletAddress.slice(0, 4) + '...' + walletAddress.slice(-4);
+                connectBtn.classList.add('connected');
+                connectBtn.onclick = () => showView('profile');
+
+                // Update wallet card
+                const walletInfo = document.getElementById('walletInfo');
+                const walletAddressElement = document.getElementById('walletAddress');
+                if (walletInfo && walletAddressElement) {
+                    walletAddressElement.textContent = walletAddress;
+                    walletInfo.style.display = 'block';
+                }
+
+                // Show profile view
+                showView('profile');
+
+                console.log('Connected to wallet:', walletAddress);
+            } catch (err) {
+                console.error('Error connecting to wallet:', err);
+                alert('Failed to connect wallet. Please try again.');
+            }
+        }
+
+        // Disconnect wallet when user disconnects from Phantom
+        if (window.solana) {
+            window.solana.on('disconnect', () => {
+                walletConnected = false;
+                walletAddress = null;
+                const connectBtn = document.getElementById('connectBtn');
+                connectBtn.textContent = 'Connect Wallet';
+                connectBtn.classList.remove('connected');
+                connectBtn.onclick = connectWallet;
+            });
+        }
+
+        // Initialize on page load
+        loadSavedFee();
+        
+        // Set initial display for fee amount
+        const initialFeeElement = document.getElementById('feeAmount');
+        if (initialFeeElement) {
+            initialFeeElement.textContent = formatCurrency(currentFee);
+        }
+
+        // Start fee updates after 5 seconds
+        setTimeout(() => {
+            updateFee();
+            // Then continue updating every 5 seconds
+            setInterval(updateFee, 5000);
+        }, 5000);
     </script>
 </body>
 </html>
